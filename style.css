@@ -1,0 +1,95 @@
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const CANVAS_WIDTH = canvas.width;
+const CANVAS_HEIGHT = canvas.height;
+
+// Game state
+let gameOver = false;
+let gameStarted = false;
+let score = 0;
+
+// Raccoon properties
+let raccoonX = 50;
+let raccoonY = CANVAS_HEIGHT / 2;
+const raccoonWidth = 40;
+const raccoonHeight = 40;
+let raccoonVelocity = 0;
+const gravity = 0.3;
+const jumpPower = -6;
+
+// Pipe properties
+const pipeWidth = 60;
+const pipeGap = 50;
+const pipeSpeed = 1;
+let pipes = [];
+let frameCount = 0;
+
+// Modal elements
+const gameOverModal = document.getElementById("gameOverModal");
+const retryBtn = document.getElementById("retryBtn");
+const banner = document.getElementById("banner");
+
+// Event listeners
+canvas.addEventListener("mousedown", handleJump);
+retryBtn.addEventListener("click", resetGame);
+banner.addEventListener("click", startGame);
+
+// Images
+const bgImage = new Image();
+const raccoonImage = new Image();
+const pipeNorthImage = new Image();
+const pipeSouthImage = new Image();
+
+bgImage.src = "https://r.resimlink.com/2RDg1o4Zqrv.jpg";  // Background image
+raccoonImage.src = "https://r.resimlink.com/W-GhleM.png";  // Raccoon sprite
+pipeNorthImage.src = "https://r.resimlink.com/hysXPJC.png"; // Top pipe
+pipeSouthImage.src = "https://r.resimlink.com/hysXPJC.png"; // Bottom pipe
+
+// Ensure images are loaded before starting the game loop
+let imagesLoaded = 0;
+[bgImage, raccoonImage, pipeNorthImage, pipeSouthImage].forEach((img) => {
+  img.onload = () => {
+    imagesLoaded++;
+    if (imagesLoaded === 4) {
+      draw();
+    }
+  };
+});
+
+function update() {
+  if (!gameOver && gameStarted) {
+    raccoonVelocity += gravity;
+    raccoonY += raccoonVelocity;
+
+    if (raccoonY < 0 || raccoonY + raccoonHeight > CANVAS_HEIGHT) {
+      endGame();
+    }
+
+    frameCount++;
+    if (frameCount % 90 === 0) {
+      createPipe();
+    }
+
+    movePipes();
+    checkCollision();
+    updateScore();
+  }
+
+  draw();
+  requestAnimationFrame(update);
+}
+
+function createPipe() {
+  const topHeight = Math.floor(Math.random() * (CANVAS_HEIGHT - pipeGap - 100)) + 50;
+  pipes.push({
+    x: CANVAS_WIDTH,
+    topHeight,
+    bottomY: topHeight + pipeGap,
+    passed: false
+  });
+}
+
+function movePipes() {
+  pipes.forEach((pipe) => {
+    pipe.x -= pipe
