@@ -145,7 +145,7 @@ function draw() {
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     ctx.fillStyle = "#fff";
     ctx.font = "50px Arial";
-    ctx.fillText("Let's Go Racoon!", CANVAS_WIDTH / 2.15 - 150, CANVAS_HEIGHT / 2);
+    ctx.fillText("Let's Go Raccoon!", CANVAS_WIDTH / 2.15 - 150, CANVAS_HEIGHT / 2);
 
     // Draw logo at the top center of the canvas
     const logoWidth = 400;
