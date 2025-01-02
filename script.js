@@ -183,3 +183,26 @@ function resetGame() {
 }
 
 update();
+
+<div id="music-player">
+  <button id="play">Oynat</button>
+  <button id="pause">Duraklat</button>
+</div>
+
+<audio id="audio" src="/music.mp3"></audio>
+
+<script>
+  const audio = document.getElementById('audio');
+  const playButton = document.getElementById('play');
+  const pauseButton = document.getElementById('pause');
+
+  playButton.addEventListener('click', () => {
+    audio.play();
+  });
+
+  pauseButton.addEventListener('click', () => {
+    audio.pause();
+  });
+</script>
+
+
