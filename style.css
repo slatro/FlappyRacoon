@@ -94,10 +94,6 @@ function movePipes() {
   pipes.forEach((pipe) => {
     pipe.x -= pipe
 
-audio {
-  width: 300px;
-  margin: 20px auto;
-  display: block;
-}
+
 
 
