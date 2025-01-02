@@ -95,8 +95,21 @@ function movePipes() {
     pipe.x -= pipe
 
 audio {
-  width: 300px;
-  margin: 20px auto;
-  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; /* Çalar genişliği */
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Tam ekran yüksekliği */
+  background-color: #f4f4f4; /* Arka plan rengi */
+}
+
 
